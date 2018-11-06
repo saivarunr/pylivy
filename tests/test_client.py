@@ -4,8 +4,8 @@ import multiprocessing
 import pytest
 from flask import Flask, request, jsonify
 
-from livy.client import LivyClient
-from livy.models import Session, SessionKind, Statement, StatementKind
+from pylivy.client import LivyClient
+from pylivy.models import Session, SessionKind, Statement, StatementKind
 
 
 MOCK_SESSION_JSON = {'mock': 'session'}

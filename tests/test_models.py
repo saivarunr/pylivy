@@ -1,6 +1,6 @@
 import pytest
 
-from livy.models import (
+from pylivy.models import (
     Version,
     Session, SessionKind, SessionState,
     Statement, StatementState,

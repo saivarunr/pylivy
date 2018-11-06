@@ -4,8 +4,8 @@ from typing import Any, Dict, Iterable, Iterator, Optional
 
 import pandas
 
-from livy.client import LivyClient
-from livy.models import SessionKind, SessionState, StatementState, Output
+from pylivy.client import LivyClient
+from pylivy.models import SessionKind, SessionState, StatementState, Output
 
 
 SERIALISE_DATAFRAME_TEMPLATE_SPARK = '{}.toJSON.collect.foreach(println)'
@@ -153,6 +153,18 @@ class LivySession:
             statement = self.client.get_statement(
                 statement.session_id, statement.statement_id
             )
+
+        if statement.output is None and statement.state == StatementState.AVAILABLE:
+            """
+            Incase of statement is processed but the output is yet to be written
+            """
+            for i in range(100):
+                time.sleep(0.5)
+                statement = self.client.get_statement(
+                    statement.session_id, statement.statement_id
+                )
+                if statement.output is not None:
+                    break
 
         if statement.output is None:
             raise RuntimeError('statement had no output')

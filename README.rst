@@ -25,3 +25,4 @@ Usage
         session.run("filtered = df.filter(df.name == 'Bob')")
         # Retrieve the result
         local_df = session.read('filtered')
+Fork of https://github.com/acroz/pylivy

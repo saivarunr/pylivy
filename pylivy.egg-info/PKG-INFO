@@ -1,0 +1,39 @@
+Metadata-Version: 1.1
+Name: pylivy
+Version: 0.0.1
+Summary: A Python client for Apache Livy
+Home-page: https://github.com/saivarunr/pylivy
+Author: Sai Varun Reddy Daram
+Author-email: saivarunvishal@gmail.com
+License: MIT
+Description: pylivy
+        ======
+        
+        .. image:: https://travis-ci.org/acroz/pylivy.svg?branch=master
+            :target: https://travis-ci.org/acroz/pylivy
+        
+        .. image:: https://badge.fury.io/py/livy.svg
+            :target: https://pypi.org/project/livy/
+        
+        `Livy <https://livy.incubator.apache.org/>`_ is an open source REST interface
+        for interacting with `Spark <http://spark.apache.org/>`_. ``pylivy`` is a
+        Python client for Livy, enabling easy remote code execution on a Spark cluster.
+        
+        Usage
+        -----
+        
+        .. code:: python
+        
+            from livy import LivySession
+        
+            LIVY_URL = 'http://spark.example.com:8998'
+        
+            with LivySession(LIVY_URL) as session:
+                # Run some code on the remote cluster
+                session.run("filtered = df.filter(df.name == 'Bob')")
+                # Retrieve the result
+                local_df = session.read('filtered')
+        Fork of https://github.com/acroz/pylivy
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3

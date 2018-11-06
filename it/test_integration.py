@@ -5,7 +5,7 @@ import pytest
 import requests
 import pandas
 
-from livy import (
+from pylivy import (
     LivySession, SessionKind, SparkRuntimeError, SessionState
 )
 

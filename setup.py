@@ -37,14 +37,14 @@ class IntegrationTests(PyTest):
 
 
 setup(
-    name='livy',
-    version='0.3.1',
+    name='pylivy',
+    version='0.0.1',
     description='A Python client for Apache Livy',
     long_description=README.read_text(),
-    packages=['livy'],
-    url='https://github.com/acroz/pylivy',
-    author='Andrew Crozier',
-    author_email='wacrozier@gmail.com',
+    packages=['pylivy'],
+    url='https://github.com/saivarunr/pylivy',
+    author='Sai Varun Reddy Daram',
+    author_email='saivarunvishal@gmail.com',
     license='MIT',
     classifiers=[
         'License :: OSI Approved :: MIT License',

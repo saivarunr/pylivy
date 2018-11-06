@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional
 
 import requests
 
-from livy.models import Version, Session, SessionKind, Statement, StatementKind
+from pylivy.models import Version, Session, SessionKind, Statement, StatementKind
 
 
 LOGGER = logging.getLogger(__name__)
