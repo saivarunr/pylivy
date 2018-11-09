@@ -5,9 +5,7 @@ import requests
 
 from pylivy.models import Version, Session, SessionKind, Statement, StatementKind
 
-
 LOGGER = logging.getLogger(__name__)
-
 
 VALID_LEGACY_SESSION_KINDS = {
     SessionKind.SPARK, SessionKind.PYSPARK, SessionKind.PYSPARK3,
@@ -28,17 +26,17 @@ class JsonClient:
     def close(self) -> None:
         self.session.close()
 
-    def get(self, endpoint: str='') -> dict:
+    def get(self, endpoint: str = '') -> dict:
         return self._request('GET', endpoint)
 
-    def post(self, endpoint: str, data: dict=None) -> dict:
+    def post(self, endpoint: str, data: dict = None) -> dict:
         return self._request('POST', endpoint, data)
 
-    def delete(self, endpoint: str='') -> dict:
+    def delete(self, endpoint: str = '') -> dict:
         return self._request('DELETE', endpoint)
 
     def _request(
-        self, method: str, endpoint: str, data: dict=None
+            self, method: str, endpoint: str, data: dict = None
     ) -> dict:
         url = self.url.rstrip('/') + endpoint
         response = self.session.request(method, url, json=data)
@@ -70,7 +68,8 @@ class LivyClient:
         return [Session.from_json(item) for item in data['sessions']]
 
     def create_session(
-            self, kind: SessionKind, spark_conf: Dict[str, Any]=None
+            self, kind: SessionKind, spark_conf: Dict[str, Any] = None,
+            spark_jars: List[str] = None
     ) -> Session:
         if self.legacy_server():
             valid_kinds = VALID_LEGACY_SESSION_KINDS
@@ -86,7 +85,8 @@ class LivyClient:
         body = {'kind': kind.value}
         if spark_conf is not None:
             body['conf'] = spark_conf
-
+        if spark_jars is not None:
+            body['jars'] = spark_jars
         data = self._client.post('/sessions', data=body)
         return Session.from_json(data)
 
@@ -111,7 +111,7 @@ class LivyClient:
         ]
 
     def create_statement(
-        self, session_id: int, code: str, kind: StatementKind=None
+            self, session_id: int, code: str, kind: StatementKind = None
     ) -> Statement:
 
         data = {'code': code}
@@ -128,7 +128,7 @@ class LivyClient:
         return Statement.from_json(session_id, response)
 
     def get_statement(
-        self, session_id: int, statement_id: int
+            self, session_id: int, statement_id: int
     ) -> Statement:
         response = self._client.get(
             f'/sessions/{session_id}/statements/{statement_id}'
