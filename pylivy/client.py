@@ -69,7 +69,7 @@ class LivyClient:
 
     def create_session(
             self, kind: SessionKind, spark_conf: Dict[str, Any] = None,
-            spark_jars: List[str] = None
+            spark_jars: List[str] = None, spark_executor_cores: int = None, spark_executor_memory: str = None
     ) -> Session:
         if self.legacy_server():
             valid_kinds = VALID_LEGACY_SESSION_KINDS
@@ -87,6 +87,11 @@ class LivyClient:
             body['conf'] = spark_conf
         if spark_jars is not None:
             body['jars'] = spark_jars
+        if spark_executor_cores is not None:
+            body['executorCores'] = int(spark_executor_cores)
+        if spark_executor_memory is not None:
+            body['executorMemory'] = spark_executor_memory
+        print(body)
         data = self._client.post('/sessions', data=body)
         return Session.from_json(data)
 

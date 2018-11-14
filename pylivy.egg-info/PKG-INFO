@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pylivy
-Version: 0.0.1
+Version: 0.0.3
 Summary: A Python client for Apache Livy
 Home-page: https://github.com/saivarunr/pylivy
 Author: Sai Varun Reddy Daram

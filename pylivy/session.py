@@ -73,7 +73,7 @@ class LivySession:
     def __init__(
             self, url: str, kind: SessionKind = SessionKind.PYSPARK,
             spark_conf: Dict[str, Any] = None, echo: bool = True, check: bool = True,
-            spark_jars: List[str] = None
+            spark_jars: List[str] = None, spark_executor_cores:int = None,spark_executor_memory: str=None
     ) -> None:
         self.client = LivyClient(url)
         self.kind = kind
@@ -82,6 +82,8 @@ class LivySession:
         self.session_id: Optional[int] = None
         self.spark_conf = spark_conf
         self.spark_jars = spark_jars
+        self.spark_executor_memory = spark_executor_memory
+        self.spark_executor_cores = spark_executor_cores
 
     def __enter__(self) -> 'LivySession':
         self.start()
@@ -91,7 +93,7 @@ class LivySession:
         self.close()
 
     def start(self) -> None:
-        session = self.client.create_session(self.kind, self.spark_conf, self.spark_jars)
+        session = self.client.create_session(self.kind, self.spark_conf, self.spark_jars,self.spark_executor_cores,self.spark_executor_memory)
         self.session_id = session.session_id
 
         not_ready = {SessionState.NOT_STARTED, SessionState.STARTING}
