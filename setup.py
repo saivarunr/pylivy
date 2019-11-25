@@ -38,7 +38,7 @@ class IntegrationTests(PyTest):
 
 setup(
     name='pylivy',
-    version='0.0.3',
+    version='0.0.4',
     description='A Python client for Apache Livy',
     long_description=README.read_text(),
     packages=['pylivy'],
